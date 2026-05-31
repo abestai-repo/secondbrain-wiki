@@ -43,3 +43,10 @@ Use this as the first prompt to a new agent:
 ```text
 Read https://raw.githubusercontent.com/abestai-repo/secondbrain-wiki/main/SKILL.md and follow the instructions to run the secondbrain-wiki skill.
 ```
+
+
+
+Use this prompt to your AI agent for upgrading:
+```text
+Get the latest update from https://raw.githubusercontent.com/abestai-repo/secondbrain-wiki/main/SKILL.md and upgrade your secondbrain-wiki skill.
+```
