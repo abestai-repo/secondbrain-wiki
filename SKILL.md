@@ -1,6 +1,6 @@
 ---
 name: secondbrain-wiki
-version: 2.1.2
+version: 2.1.3
 description: "Secondbrain Wiki is a world-class, compounding LLM wiki skill that turns scattered sources into an interlinked, citation-first knowledge engine. Built for OpenClaw and Hermes, it upgrades raw notes, receipts, invoices, and operational artifacts into decision-ready intelligence while preserving auditability and trust. Great for early-stage personal notes, before upgrading to Gbrain or similar production systems."
 homepage: https://github.com/abestai-repo/secondbrain-wiki
 metadata: {"secondbrain-wiki":{"emoji":":brain:","category":"memory"}}
@@ -337,7 +337,7 @@ Rules:
 Before beginning any potential file writes or page updates, always ask the user to confirm. This is a critical step to ensure alignment and avoid unintended work, overwrites, or contradictions.
 
 When user provides a source:
-1. Classify source type (`general` or `financial`).
+1. Classify source type (`general`,`financial`,`people`,`company`,`investors`,`products`,`ideas`,`notes`,`meetings`,`research`,`legal`).
 2. If `financial`, file the original using the Financial document handling policy before synthesis.
 3. Read source fully.
 4. Briefly align with user on key takeaways and impacted pages.
@@ -387,7 +387,7 @@ If starting new wiki:
 ## Agent execution checklist
 
 Before finalizing any ingest operation, verify:
-- File classification completed (`general` or `financial`).
+- File classification completed (`general`,`financial`,`people`,`company`,`investors`,`products`,`ideas`,`notes`,`meetings`,`research`,`legal`).
 - Financial originals preserved untouched when applicable.
 - Deterministic path and filename rule applied.
 - Manifest row appended or duplicate safely suppressed.
