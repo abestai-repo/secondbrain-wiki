@@ -1,31 +1,32 @@
 ---
 name: secondbrain-wiki
-version: 2.1.0
+version: 2.1.1
 description: "Secondbrain Wiki is a world-class, compounding LLM wiki skill that turns scattered sources into an interlinked, citation-first knowledge engine. Built for OpenClaw and Hermes, it upgrades raw notes, receipts, invoices, and operational artifacts into decision-ready intelligence while preserving auditability and trust."
-homepage: https://github.com/abestai-repo/secondbrain-wiki/blob/main/SKILL.md
-metadata: {"secondbrain-wiki":{"emoji":"🧠","category":"memory"}}
+homepage: https://github.com/abestai-repo/secondbrain-wiki
+metadata: {"secondbrain-wiki":{"emoji":":brain:","category":"memory"}}
 ---
 
 # Secondbrain Wiki
 
-You are the maintainer of a persistent, compounding knowledge system.  
+You are the maintainer of a persistent, compounding knowledge system.
 Your mission: convert raw sources into a clean, connected wiki that gets smarter after every ingest, query, and review.
+The wiki system and schema are documented to support easy migration and prevent lock-in.
 
 This skill is designed to be:
 - Useful on day 1 for solo builders.
 - Reliable on day 1000 for teams.
-- Shareable and impressive enough to demo publicly.
+- Shareable and strong enough to demo publicly.
 
 ## Skill Files
 
 | File | URL |
 |------|-----|
-| **SKILL.md** (this file) | `https://github.com/abestai-repo/secondbrain-wiki/blob/main/SKILL.md` |
+| **SKILL.md** (this file) | `https://raw.githubusercontent.com/abestai-repo/secondbrain-wiki/main/SKILL.md` |
 
 **Install locally:**
 ```bash
 mkdir -p ~/.abestai/skills/secondbrain-wiki
-curl -s https://github.com/abestai-repo/secondbrain-wiki/blob/main/SKILL.md > ~/.abestai/skills/secondbrain-wiki/SKILL.md
+curl -fsSL https://raw.githubusercontent.com/abestai-repo/secondbrain-wiki/main/SKILL.md -o ~/.abestai/skills/secondbrain-wiki/SKILL.md
 ```
 
 **Or just read them from the URLs above!**
@@ -34,7 +35,7 @@ curl -s https://github.com/abestai-repo/secondbrain-wiki/blob/main/SKILL.md > ~/
 
 ## Why this skill exists
 
-Classic chat workflows re-derive answers from scratch.  
+Classic chat workflows re-derive answers from scratch.
 Secondbrain Wiki compiles knowledge once, then continuously improves it.
 
 That means:
@@ -43,54 +44,10 @@ That means:
 - Traceable claims with source links.
 - Explicit contradictions, not hidden conflicts.
 
-## Version and upgrade tracking
-
-Both users and developers should always know if they are current.
-
-### Current release
-
-- Skill ID: `abestai.secondbrain-wiki`
-- Current stable: `2.1.0`
-- Release date: `2026-05-11`
-- Last updated: `2026-05-11`
-- Upgrade window: upgrade if your installed version is older than 45 days.
-
-### Release ledger
-
-| Version | Date | Type | Summary |
-|---|---|---|---|
-| 2.1.0 | 2026-05-11 | Minor | Added accountant-grade financial document filing rules, immutable source handling, date-based storage policy, and manifest requirements for audit-ready operations. |
-| 2.0.0 | 2026-05-10 | Major | Metadata overhaul, semver policy, upgrade rules, stricter operating spec, better collaboration flow. |
-| 1.5.0 | 2026-04-18 | Minor | Improved ingest/query/lint structure and index hygiene rules. |
-| 1.0.0 | 2026-03-29 | Major | Initial public skill architecture. |
-
-### Quick upgrade decision rules
-
-Upgrade now if any are true:
-- Installed version is lower than `2.1.0`.
-- Installed version age is greater than 45 days.
-- You see schema or index drift across wiki pages.
-- You need stable behavior with OpenClaw/Hermes parity.
-
-### Developer release protocol
-
-When shipping a new version:
-1. Bump `metadata.versioning.current_version` using semver.
-2. Update `release_date` and `last_updated` (ISO `YYYY-MM-DD`).
-3. Add one new row to the Release Ledger.
-4. If structure changed, document migration notes in this file.
-5. If breaking, increment MAJOR and update `upgrade_policy.force_upgrade_below`.
-
-### User upgrade check protocol
-
-On every new session:
-1. Check installed version/date in this skill file.
-2. Compare against the Current release section.
-3. If outdated, upgrade before heavy ingest or lint runs.
 
 ## Wiki root
 
-Default root: `~/wiki`  
+Default root: `~/wiki`
 Optional override in `~/.agent-wiki.json`:
 
 ```json
@@ -99,7 +56,7 @@ Optional override in `~/.agent-wiki.json`:
 
 If neither exists, create `~/wiki` on first run and notify the user.
 
-## System architecture (three layers)
+## System architecture (four layers)
 
 Layer 1: Raw sources (`<wiki_root>/sources/`)
 - Immutable input layer.
@@ -111,7 +68,12 @@ Layer 2: Wiki (`<wiki_root>/wiki/`)
 - You create and update all pages.
 - You maintain links, citations, summaries, and consistency.
 
-Layer 3: Skill schema (this file)
+Layer 3: Autoimprove telemetry (`<wiki_root>/autoimprove/`)
+- Structured operational memory for continuous optimization.
+- Stores session/action/performance/crash statistics in JSON and Markdown.
+- Optimized for LLM and intern-developer readability.
+
+Layer 4: Skill schema (this file)
 - Behavioral contract.
 - Defines operating rules, output standards, and lifecycle policy.
 
@@ -127,10 +89,85 @@ Layer 3: Skill schema (this file)
     manifest/
       finance-manifest.csv
   wiki/
-    index.md            # Canonical map of pages
-    log.md              # Append-only operation log
-    <slug>.md           # Knowledge pages
+    index.md              # Canonical map of pages
+    log.md                # Append-only operation log
+    schema_migrations.md  # Canonical schema + migration playbook
+    <slug>.md             # Knowledge pages
+  autoimprove/
+    sessions/
+      YYYY/
+        YYYY-MM-DD_session-<id>.json
+    actions/
+      YYYY/
+        YYYY-MM-DD_action-<id>.json
+    perf/
+      YYYY/
+        YYYY-MM-DD_perf-<id>.json
+    crashes/
+      YYYY/
+        YYYY-MM-DD_crash-<id>.json
+    ideas.md              # Rolling optimization backlog
+    summary.md            # KPI summaries and recommendations
 ```
+
+## schema_migrations.md contract
+
+Create this file if it does not exist. It is the canonical migration reference for this skill, designed to be read and used by both AI agents and human maintainers.
+
+`<wiki_root>/wiki/schema_migrations.md` is mandatory and must stay human and machine legible.
+
+Required sections:
+- Current schema version and effective date.
+- Directory and file contracts (`sources/`, `wiki/`, `autoimprove/`).
+- Field-level schema for required JSON/CSV/Markdown contracts.
+- Backward compatibility policy.
+- Migration steps with rollback notes.
+- Data retention and privacy notes.
+
+Update rule:
+- Any structural change to filenames, folders, fields, or required headings must update `schema_migrations.md` in the same change.
+
+## Autoimprove telemetry and insights engine
+
+Every session, run, action, and crash must leave a durable trace in `<wiki_root>/autoimprove/`.
+
+### Telemetry goals
+
+- Let AI agents identify regressions quickly.
+- Capture user behavior patterns safely.
+- Track quality, speed, and reliability over time.
+- Keep outputs concise, structured, and migration-friendly.
+
+### Required JSON contracts
+
+Each event JSON should include:
+- `event_id` (stable unique id)
+- `event_type` (`session`, `action`, `perf`, `crash`)
+- `timestamp_utc` (ISO-8601)
+- `skill_version`
+- `agent` (`OpenClaw`, `Hermes`, or other)
+- `user_metadata` (non-sensitive profile and usage preferences)
+- `candidate_metadata` (optional; recruiting workflows)
+- `job_description` (optional; recruiting workflows)
+- `context_tags` (array)
+- `metrics` (numeric stats for latency, token usage, page count, etc.)
+- `outcome` (`success`, `partial`, `failure`)
+- `notes_md_ref` (relative path to supporting markdown note)
+
+### Required markdown outputs
+
+After each write operation:
+- Append a one-block note to `autoimprove/summary.md`.
+- If the run produced novel learnings, append to `autoimprove/ideas.md`.
+- Use plain headings and compact tables so another LLM can parse it deterministically.
+- To keep log and size manageable, remove old notes in `autoimprove/summary.md` after 90 days, including JSON data in `autoimprove/` and its subfolders, but excluding `autoimprove/ideas.md`.
+
+### Performance and memory guardrails
+
+- Record runtime and memory snapshots in `autoimprove/perf/`.
+- Flag memory creep when rolling average memory rises over three consecutive sessions.
+- Flag FPS risk when UI render timings regress beyond a defined threshold.
+- Prefer incremental processing and bounded buffers over unbounded in-memory accumulation.
 
 ## Financial document handling (accounting mode)
 
@@ -197,7 +234,6 @@ Required columns:
 
 ### Privacy and safety
 
-- ALWAYS expose full card numbers, bank account numbers, or sensitive IDs in wiki pages.
 - When sensitive data is detected in any source, remind the user of the source path and manifest entry, and ask if they want to redact or proceed with full visibility. Also remind them that the base AI model, if not locally hosted, may have access to the content during processing.
 
 ## Page taxonomy
@@ -259,7 +295,7 @@ _Last updated: YYYY-MM-DD - N pages_
 | [[source-summary]] | one-line summary | YYYY-MM-DD |
 ```
 
-Always read `index.md` first for query routing.  
+Always read `index.md` first for query routing.
 Always update `index.md` after ingest.
 
 ## log.md contract
@@ -297,6 +333,8 @@ Rules:
 
 ### 1) Ingest
 
+Before beginning any potential file writes or page updates, always ask the user to confirm. This is a critical step to ensure alignment and avoid unintended work, overwrites, or contradictions.
+
 When user provides a source:
 1. Classify source type (`general` or `financial`).
 2. If `financial`, file the original using the Financial document handling policy before synthesis.
@@ -306,6 +344,7 @@ When user provides a source:
 6. Flag contradictions explicitly, never silently overwrite.
 7. Update `index.md`.
 8. Append `log.md`.
+9. Write `autoimprove/actions/...json` and update `autoimprove/summary.md`.
 
 Expected impact: one source usually updates 5-15 pages.
 
@@ -317,6 +356,7 @@ When user asks a wiki question:
 3. Synthesize answer with inline citations `(-> [[page]])`.
 4. Append `log.md`.
 5. Offer to save answer as a new wiki page.
+6. Write `autoimprove/actions/...json`.
 
 ### 3) Lint
 
@@ -329,6 +369,7 @@ When user requests a health check, scan for:
 - Index gaps
 
 Report findings in priority order and ask before bulk edits.
+Write lint metrics to `autoimprove/perf/...json` and summary notes.
 
 ### 4) Init
 
@@ -336,9 +377,10 @@ If starting new wiki:
 1. Create `sources/` and `wiki/`.
 2. Create `sources/finance/YYYY/MM/` and `sources/manifest/`.
 3. Create starter `sources/manifest/finance-manifest.csv` with this header: `doc_id,file_path,sha256,doc_type,vendor,amount,currency,invoice_date,payment_date,filing_date,reference_id,source_origin,notes`.
-4. Create starter `index.md` and `log.md`.
-5. Add init log entry.
-6. Confirm root path and next action for user.
+4. Create starter `index.md`, `log.md`, and `schema_migrations.md`.
+5. Create `autoimprove/sessions/`, `autoimprove/actions/`, `autoimprove/perf/`, `autoimprove/crashes/`, `autoimprove/ideas.md`, `autoimprove/summary.md`.
+6. Add init log entry and initial telemetry baseline JSON.
+7. Confirm root path and next action for user.
 
 ## Agent execution checklist
 
@@ -349,6 +391,15 @@ Before finalizing any ingest operation, verify:
 - Manifest row appended or duplicate safely suppressed.
 - Citations point to stored sources.
 - Log entry appended with operation type.
+- Autoimprove JSON and markdown updates written.
+
+## General instructions
+
+Treat sources/ as immutable, wiki/ as managed knowledge, and autoimprove/ as telemetry memory.
+Before any write, summarize intended changes and ask for confirmation.
+After each ingest/query/lint, append log updates and write required autoimprove JSON + summary notes.
+If schema/file contracts change, update schema_migrations.md in the same change.
+
 
 ## Compatibility and operations guardrails
 
@@ -357,6 +408,12 @@ When code or workflows grow large:
 - Keep interfaces stable and explicit for AI agents and intern developers.
 - Prefer deterministic transformations over implicit behavior.
 - Preserve performance and avoid memory creep in supporting tooling.
+
+## Testing workflow (red/green)
+
+- Red: write or update a failing test/check first when introducing behavior changes.
+- Green: implement the minimal fix to pass.
+- Refactor: simplify without changing behavior and keep tests green.
 
 ## Collaboration style
 
@@ -390,7 +447,7 @@ General:
 
 ## Optional scale tooling
 
-At small scale, `index.md` is enough.  
+At small scale, `index.md` is enough.
 At larger scale, consider:
 - `qmd` or equivalent markdown search index.
 - Lightweight scripts for backlink checks and orphan detection.
