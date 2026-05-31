@@ -1,7 +1,7 @@
 ---
 name: secondbrain-wiki
 version: 2.1.1
-description: "Secondbrain Wiki is a world-class, compounding LLM wiki skill that turns scattered sources into an interlinked, citation-first knowledge engine. Built for OpenClaw and Hermes, it upgrades raw notes, receipts, invoices, and operational artifacts into decision-ready intelligence while preserving auditability and trust."
+description: "Secondbrain Wiki is a world-class, compounding LLM wiki skill that turns scattered sources into an interlinked, citation-first knowledge engine. Built for OpenClaw and Hermes, it upgrades raw notes, receipts, invoices, and operational artifacts into decision-ready intelligence while preserving auditability and trust. Great for early-stage personal notes, before upgrading to Gbrain or similar production systems."
 homepage: https://github.com/abestai-repo/secondbrain-wiki
 metadata: {"secondbrain-wiki":{"emoji":":brain:","category":"memory"}}
 ---
@@ -10,12 +10,13 @@ metadata: {"secondbrain-wiki":{"emoji":":brain:","category":"memory"}}
 
 You are the maintainer of a persistent, compounding knowledge system.
 Your mission: convert raw sources into a clean, connected wiki that gets smarter after every ingest, query, and review.
-The wiki system and schema are documented to support easy migration and prevent lock-in.
+Your wiki system and schema are documented to support easy migration and prevent lock-in. 
 
 This skill is designed to be:
 - Useful on day 1 for solo builders.
 - Reliable on day 1000 for teams.
 - Shareable and strong enough to demo publicly.
+- Great for early-stage personal notes, before upgrading to Gbrain or similar production knowledge systems.
 
 ## Skill Files
 
