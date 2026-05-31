@@ -41,10 +41,5 @@ When handing this system to an AI agent, provide these files first:
 Use this as the first prompt to a new agent:
 
 ```text
-You are operating the secondbrain-wiki skill.
-Read SKILL.md first.
-Treat sources/ as immutable, wiki/ as managed knowledge, and autoimprove/ as telemetry memory.
-Before any write, summarize intended changes and ask for confirmation.
-After each ingest/query/lint, append log updates and write required autoimprove JSON + summary notes.
-If schema/file contracts change, update schema_migrations.md in the same change.
+Read https://raw.githubusercontent.com/abestai-repo/secondbrain-wiki/main/SKILL.md and follow the instructions to run the secondbrain-wiki skill.
 ```
