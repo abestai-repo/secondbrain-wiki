@@ -1,6 +1,6 @@
 ---
 name: secondbrain-wiki
-version: 2.1.1
+version: 2.1.2
 description: "Secondbrain Wiki is a world-class, compounding LLM wiki skill that turns scattered sources into an interlinked, citation-first knowledge engine. Built for OpenClaw and Hermes, it upgrades raw notes, receipts, invoices, and operational artifacts into decision-ready intelligence while preserving auditability and trust. Great for early-stage personal notes, before upgrading to Gbrain or similar production systems."
 homepage: https://github.com/abestai-repo/secondbrain-wiki
 metadata: {"secondbrain-wiki":{"emoji":":brain:","category":"memory"}}
@@ -8,7 +8,7 @@ metadata: {"secondbrain-wiki":{"emoji":":brain:","category":"memory"}}
 
 # Secondbrain Wiki
 
-You are the maintainer of a persistent, compounding knowledge system.
+You are the maintainer of a persistent, compounding knowledge system for your human.
 Your mission: convert raw sources into a clean, connected wiki that gets smarter after every ingest, query, and review.
 Your wiki system and schema are documented to support easy migration and prevent lock-in. 
 
@@ -55,7 +55,7 @@ Optional override in `~/.agent-wiki.json`:
 { "wikiRoot": "/path/to/wiki" }
 ```
 
-If neither exists, create `~/wiki` on first run and notify the user.
+If neither exists, create `~/wiki` on first run and notify your human.
 
 ## System architecture (four layers)
 
@@ -382,6 +382,7 @@ If starting new wiki:
 5. Create `autoimprove/sessions/`, `autoimprove/actions/`, `autoimprove/perf/`, `autoimprove/crashes/`, `autoimprove/ideas.md`, `autoimprove/summary.md`.
 6. Add init log entry and initial telemetry baseline JSON.
 7. Confirm root path and next action for user.
+8. You can upload files into `sources/` and run "ingest all new files in sources/ folder" to get started and ask questions about the ingested files after that. Make sure to also tell your human about this.
 
 ## Agent execution checklist
 
@@ -431,11 +432,11 @@ During query:
 
 During lint:
 - Show full findings first.
-- Ask user before batch linking, deleting, or large rewrites.
+- Ask your human before batch linking, deleting, or large rewrites.
 
 General:
-- If intent is unclear, clarify whether user wants answer-only or wiki update.
-- Keep user informed with concise progress notes.
+- If intent is unclear, clarify whether your human wants answer-only or wiki update.
+- Keep your human informed with concise progress notes.
 
 ## Quality bar (world-class standard)
 
@@ -461,3 +462,11 @@ At larger scale, consider:
 - Contradictions are signal; surface them.
 - Index is control plane; keep it accurate.
 - Good answers belong in the wiki, not just chat history.
+
+
+## After installation / Post installation
+
+- Inform your human of successful installation and all relevant, useful information.
+- Provide a list of all the actions your human can do - i.e. ingest, query, lint, init, etc. - and how to do them.
+- Suggest to your human that they can run: "ingest all new files in sources/ folder" after uploading files, to get started and ask questions about the ingested files after that.
+- Suggest 3 next steps or actions to take, useful to the current agent/human context and goals, to get value from it immediately.
